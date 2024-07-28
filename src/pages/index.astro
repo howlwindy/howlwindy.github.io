@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>howlwindy</title>
+  </head>
+  <body
+    class="flex justify-center items-center w-screen h-screen appearance-auto scroll-smooth bg-slate-50 dark:bg-slate-800"
+  >
+    <slot />
+    <div
+      id="building"
+      class="!bg-clip-text text-transparent text-5xl font-mono font-extrabold subpixel-antialiased tracking-widest select-none"
+    >
+      Building...
+    </div>
+  </body>
+  <script type="module">
+    function rgbGen() {
+      return {
+        r: Math.floor(Math.random() * 256),
+        g: Math.floor(Math.random() * 256),
+        b: Math.floor(Math.random() * 256),
+      }
+    }
+
+    function bgGen(rgbFrom, rgbTo) {
+      const colorFrom = `rgb(${rgbFrom.r}, ${rgbFrom.g}, ${rgbFrom.b})`
+      const colorTo = `rgb(${rgbTo.r}, ${rgbTo.g}, ${rgbTo.b})`
+      return `linear-gradient(${Math.random() * 360}deg, ${colorFrom}, ${colorTo})`
+    }
+
+    function textShadowGen(rgb0, rgb1) {
+      return `
+        0 0 20px rgba(${rgb0.r}, ${rgb0.g}, ${rgb0.b}, .5),
+        0 0 25px rgba(${rgb1.r}, ${rgb1.g}, ${rgb1.b}, .5)
+      `
+    }
+
+    function changeBuildingStyles(building) {
+      const rgb0 = rgbGen()
+      const rgb1 = rgbGen()
+      building.style.background = bgGen(rgb0, rgb1)
+      building.style.textShadow = textShadowGen(rgb0, rgb1)
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const building = document.getElementById('building')
+      changeBuildingStyles(building)
+
+      document.body.addEventListener('mousemove', () => {
+        changeBuildingStyles(building)
+      })
+
+      document.body.addEventListener('touchmove', () => {
+        changeBuildingStyles(building)
+      })
+    })
+  </script>
+</html>
