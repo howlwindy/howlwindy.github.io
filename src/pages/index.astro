@@ -9,7 +9,7 @@
     <title>howlwindy</title>
   </head>
   <body
-    class="flex justify-center items-center w-screen h-screen appearance-auto scroll-smooth bg-slate-50 dark:bg-slate-800"
+    class="flex justify-center items-center w-screen h-screen appearance-auto bg-slate-50 dark:bg-slate-800 overflow-x-hidden overflow-y-scroll scroll-smooth"
   >
     <slot />
     <div
@@ -62,3 +62,9 @@
     })
   </script>
 </html>
+
+<style>
+  body::-webkit-scrollbar {
+    display: none;
+  }
+</style>
